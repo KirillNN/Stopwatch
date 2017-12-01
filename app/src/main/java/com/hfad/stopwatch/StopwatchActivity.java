@@ -2,10 +2,12 @@ package com.hfad.stopwatch;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.TextView;
 
 public class StopwatchActivity extends Activity {
+    final Handler handler = new Handler();
     private int seconds = 0;
     private boolean running;
     TextView timeView = findViewById(R.id.timeView);
@@ -14,6 +16,7 @@ public class StopwatchActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stopwatch);
+        runTimer();
     }
 
     public void onClickStart(View view) {
@@ -28,15 +31,20 @@ public class StopwatchActivity extends Activity {
         running = false;
         seconds = 0;
     }
+
     void runTimer() {
-
-        int hours = seconds / 3600;
-        int minutes = (seconds % 3600) / 60;
-        String time = String.format("%d:%02d:%02d", hours, minutes, seconds);
-        timeView.setText(time);
-        if (running) {
-            seconds++;
-        }
-
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                int hours = seconds / 3600;
+                int minutes = (seconds % 3600) / 60;
+                String time = String.format("%d:%02d:%02d", hours, minutes, seconds);
+                timeView.setText(time);
+                if (running) {
+                    seconds++;
+                }
+                handler.postDelayed(this, 1000);
+            }
+        });
     }
 }
