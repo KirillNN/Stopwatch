@@ -16,6 +16,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:gravity="center_vertical|center_horizontal"
         android:textAppearance="@android:style/TextAppearance.Large"
         android:textSize="42sp"
         app:layout_constraintEnd_toEndOf="parent"

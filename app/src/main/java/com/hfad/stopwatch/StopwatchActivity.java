@@ -7,10 +7,8 @@ import android.view.View;
 import android.widget.TextView;
 
 public class StopwatchActivity extends Activity {
-    final Handler handler = new Handler();
     private int seconds = 0;
     private boolean running;
-    TextView timeView = findViewById(R.id.timeView);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +31,15 @@ public class StopwatchActivity extends Activity {
     }
 
     void runTimer() {
+        final Handler handler = new Handler();
+        final TextView timeView = findViewById(R.id.timeView);
         handler.post(new Runnable() {
             @Override
             public void run() {
                 int hours = seconds / 3600;
                 int minutes = (seconds % 3600) / 60;
-                String time = String.format("%d:%02d:%02d", hours, minutes, seconds);
+                int secs = seconds % 60;
+                String time = String.format("%d:%02d:%02d", hours, minutes, secs);
                 timeView.setText(time);
                 if (running) {
                     seconds++;
