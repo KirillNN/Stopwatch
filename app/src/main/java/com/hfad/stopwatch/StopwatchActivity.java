@@ -23,6 +23,43 @@ public class StopwatchActivity extends Activity {
         runTimer();
     }
 
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        if (wasRunning) {
+//            running = true;
+//        }
+//    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (wasRunning) {
+            running = true;
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putInt("seconds", seconds);
+        savedInstanceState.putBoolean("running", running);
+        savedInstanceState.putBoolean("wasRunning", wasRunning);
+    }
+
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        wasRunning = running;
+//        running = false;
+//    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        wasRunning = running;
+        running = false;
+    }
+
     public void onClickStart(View view) {
         running = true;
     }
@@ -34,28 +71,6 @@ public class StopwatchActivity extends Activity {
     public void onClickReset(View view) {
         running = false;
         seconds = 0;
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if (wasRunning) {
-            running = true;
-        }
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        wasRunning = running;
-        running = false;
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle savedInstanceState) {
-        savedInstanceState.putInt("seconds", seconds);
-        savedInstanceState.putBoolean("running", running);
-        savedInstanceState.putBoolean("wasRunning", wasRunning);
     }
 
     void runTimer() {
