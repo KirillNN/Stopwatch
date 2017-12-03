@@ -6,6 +6,8 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.TextView;
 
+//Read again from page 180
+
 public class StopwatchActivity extends Activity {
     private int seconds = 0;
     private boolean running;
